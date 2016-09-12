@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Brawlhalla Requester.iml" filepath="$PROJECT_DIR$/.idea/modules/Brawlhalla Requester.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Brawlhalla_Requester_main.iml" filepath="$PROJECT_DIR$/.idea/modules/Brawlhalla_Requester_main.iml" group="Brawlhalla Requester" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Brawlhalla_Requester_test.iml" filepath="$PROJECT_DIR$/.idea/modules/Brawlhalla_Requester_test.iml" group="Brawlhalla Requester" />
+    </modules>
+  </component>
+</project>
