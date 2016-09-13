@@ -15,6 +15,54 @@ public class PlayerRanked {
     private String tier;
     private int wins, games;
     private String region;
-    private long global_rank, region_reank;
+    private long global_rank, region_rank;
     private PlayerRankedLegend[] legends;
+
+    public double getWinRate() {
+        return (double)wins/games;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setBrawlhalla_id(long brawlhalla_id) {
+        this.brawlhalla_id = brawlhalla_id;
+    }
+
+    public void setRating(int rating) {
+        this.rating = rating;
+    }
+
+    public void setPeak_rating(int peak_rating) {
+        this.peak_rating = peak_rating;
+    }
+
+    public void setTier(String tier) {
+        this.tier = tier;
+    }
+
+    public void setWins(int wins) {
+        this.wins = wins;
+    }
+
+    public void setGames(int games) {
+        this.games = games;
+    }
+
+    public void setRegion(String region) {
+        this.region = region;
+    }
+
+    public void setGlobal_rank(long global_rank) {
+        this.global_rank = global_rank;
+    }
+
+    public void setRegion_rank(long region_rank) {
+        this.region_rank = region_rank;
+    }
+
+    public void setLegends(PlayerRankedLegend[] legends) {
+        this.legends = legends;
+    }
 }

@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/Brawlhalla Requester.iml" filepath="$PROJECT_DIR$/.idea/modules/Brawlhalla Requester.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/BrawlhallaStatsRequester.iml" filepath="$PROJECT_DIR$/.idea/modules/BrawlhallaStatsRequester.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/Brawlhalla_Requester_main.iml" filepath="$PROJECT_DIR$/.idea/modules/Brawlhalla_Requester_main.iml" group="Brawlhalla Requester" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/Brawlhalla_Requester_test.iml" filepath="$PROJECT_DIR$/.idea/modules/Brawlhalla_Requester_test.iml" group="Brawlhalla Requester" />
     </modules>

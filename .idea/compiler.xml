@@ -21,6 +21,8 @@
     <bytecodeTargetLevel target="1.8">
       <module name="Brawlhalla_Requester_main" target="1.8" />
       <module name="Brawlhalla_Requester_test" target="1.8" />
+      <module name="BrawlhallaStatsRequester_main" target="1.8" />
+      <module name="BrawlhallaStatsRequester_test" target="1.8" />
     </bytecodeTargetLevel>
   </component>
 </project>
