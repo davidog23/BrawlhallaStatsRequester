@@ -29,6 +29,7 @@ repositories {
 dependencies {
 	compile('org.springframework.boot:spring-boot-starter-web')
 	compile("org.springframework.boot:spring-boot-starter-thymeleaf")
+	compile("net.sourceforge.nekohtml:nekohtml")
 	compile('org.springframework.boot:spring-boot-starter-mobile')
 	testCompile('org.springframework.boot:spring-boot-starter-test')
 }

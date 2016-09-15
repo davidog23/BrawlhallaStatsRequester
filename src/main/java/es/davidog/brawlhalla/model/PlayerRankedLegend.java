@@ -46,4 +46,32 @@ public class PlayerRankedLegend {
     public void setGames(int games) {
         this.games = games;
     }
+
+    public int getLegend_id() {
+        return legend_id;
+    }
+
+    public String getLegend_name_key() {
+        return legend_name_key;
+    }
+
+    public int getRating() {
+        return rating;
+    }
+
+    public int getPeak_rating() {
+        return peak_rating;
+    }
+
+    public String getTier() {
+        return tier;
+    }
+
+    public int getWins() {
+        return wins;
+    }
+
+    public int getGames() {
+        return games;
+    }
 }

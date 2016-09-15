@@ -3,6 +3,8 @@ package es.davidog.brawlhalla.model;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.Arrays;
+
 /**
  * Created by David on 12/09/2016.
  */
@@ -19,7 +21,12 @@ public class PlayerRanked {
     private PlayerRankedLegend[] legends;
 
     public double getWinRate() {
-        return (double)wins/games;
+        return ((int)(((double)wins/games)*10000))/100.0;
+    }
+
+    public PlayerRankedLegend mostPlayedLegend() {
+        return Arrays.stream(legends)
+                .max((legend1, legend2) -> legend1.getGames() - legend2.getGames()).get();
     }
 
     public void setName(String name) {

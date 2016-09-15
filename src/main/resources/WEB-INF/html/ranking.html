@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <title>Ranking Search</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link href="/public/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
+</head>
+<body>
+
+<nav role="navigation" class="navbar navbar-default">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Home</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav"></ul>
+            <ul class="nav navbar-nav navbar-right" >
+                <li><a>Sign in</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div class="container">
+    <h2>Ranking Search</h2>
+
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>Rank</th>
+            <th>Name</th>
+            <th>Brawlhalla ID</th>
+            <th>Tier</th>
+            <th>Win Rate</th>
+        </tr>
+        </thead>
+        <tbody>
+        <!--/*@thymesVar id="players" type="es.davidog.brawlhalla.model.RankingEntry[]"*/-->
+        <tr th:each="player : ${players}">
+            <!--/*@thymesVar id="player" type="es.davidog.brawlhalla.model.RankingEntry"*/-->
+            <td th:text="${player.rank}">Rank</td>
+            <td><a th:href="@{${player.brawlhalla_id}}" th:text="${player.name}">Name</a></td>
+            <td th:text="${player.brawlhalla_id}">ID</td>
+            <td th:text="${player.tier}">Tier</td>
+            <td th:text="${player.getWinRate() + '%'}">Win Rate</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<script type="application/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script type="application/javascript" src="/public/js/bootstrap.min.js" th:src="@{/js/bootstrap.min.js}"></script>
+</body>
+</html>
