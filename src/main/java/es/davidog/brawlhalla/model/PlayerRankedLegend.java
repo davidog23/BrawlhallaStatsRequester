@@ -1,5 +1,6 @@
 package es.davidog.brawlhalla.model;
 
+import es.davidog.brawlhalla.util.FormatterUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -16,7 +17,11 @@ public class PlayerRankedLegend {
     private int wins, games;
 
     public double getWinRate() {
-        return ((int)(((double)wins/games)*10000))/100.0;
+        return FormatterUtil.formatUnitaryToPercentage((double)wins/games);
+    }
+
+    public String getFormattedName() {
+        return FormatterUtil.capitalizeFirstLetters(legend_name_key);
     }
 
     public void setLegend_id(int legend_id) {

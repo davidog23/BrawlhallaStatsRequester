@@ -2,6 +2,7 @@ package es.davidog.brawlhalla.controller;
 
 import es.davidog.brawlhalla.model.Player;
 import es.davidog.brawlhalla.model.PlayerQuery;
+import es.davidog.brawlhalla.model.PlayerRanked;
 import es.davidog.brawlhalla.model.RankingEntry;
 import es.davidog.brawlhalla.util.Queries;
 import org.springframework.stereotype.Controller;
@@ -32,7 +33,8 @@ public class WebController {
         long bid = Long.parseLong(id);
         Player player = Queries.getPlayer(bid);
         ModelAndView modelAndView = new ModelAndView("player", "player", player);
-        modelAndView.addObject("playerRanked", Queries.getPlayerRanked(bid));
+        PlayerRanked playerRanked = Queries.getPlayerRanked(bid);
+        modelAndView.addObject("playerRanked", playerRanked);
         return modelAndView;
     }
 }

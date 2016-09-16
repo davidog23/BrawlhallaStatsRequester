@@ -2,10 +2,11 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8">
-    <title>Ranking Search</title>
+    <title>Home page</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <link href="/public/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
+    <link href="/public/css/search.css" th:href="@{/css/search.css}" rel="stylesheet">
 </head>
 <body>
 
@@ -29,30 +30,21 @@
 </nav>
 
 <div class="container">
-    <h2>Ranking Search</h2>
-
-    <table class="table table-striped">
-        <thead>
-        <tr>
-            <th>Rank</th>
-            <th>Name</th>
-            <th>Brawlhalla ID</th>
-            <th>Tier</th>
-            <th>Win Rate</th>
-        </tr>
-        </thead>
-        <tbody>
-        <!--/*@thymesVar id="players" type="es.davidog.brawlhalla.model.RankingEntry[]"*/-->
-        <tr th:each="player : ${players}">
-            <!--/*@thymesVar id="player" type="es.davidog.brawlhalla.model.RankingEntry"*/-->
-            <td th:text="${player.rank}">Rank</td>
-            <td><a th:href="@{${player.brawlhalla_id}}" th:text="${player.name}">Name</a></td>
-            <td th:text="${player.brawlhalla_id}">ID</td>
-            <td th:text="${player.tier}">Tier</td>
-            <td th:text="${player.getWinRate() + '%'}">Win Rate</td>
-        </tr>
-        </tbody>
-    </table>
+    <img src="/public/assets/BrawlhallaLogo.png" th:src="@{/assets/BrawlhallaLogo.png}" width="80%" class="col-xs-offset-1" style="margin-top: 50px">
+    <form class="form-search" action="#" th:object="${player}" th:action="@{search}" style="margin-top: 50px">
+        <input class="form-control" type="text" th:field="*{name}" placeholder="Player Name" required autofocus>
+        <label for="region">Region:</label>
+        <select id="region" class="form-control" th:field="*{region}" required>
+            <option value="all" selected>All</option>
+            <option value="eu">Europe</option>
+            <option value="us-e">US-East</option>
+            <option value="us-w">US-West</option>
+            <option value="sea">Southeast Asia</option>
+            <option value="brz">Brazil</option>
+            <option value="aus">Australia</option>
+        </select>
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Search</button>
+    </form>
 </div>
 
 <script type="application/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>

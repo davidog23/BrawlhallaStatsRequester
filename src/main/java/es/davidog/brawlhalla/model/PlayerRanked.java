@@ -1,5 +1,7 @@
 package es.davidog.brawlhalla.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import es.davidog.brawlhalla.util.FormatterUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -19,14 +21,15 @@ public class PlayerRanked {
     private String region;
     private long global_rank, region_rank;
     private PlayerRankedLegend[] legends;
+    @JsonProperty("2v2")
+    private PlayerRankedTeam[] teams;
 
     public double getWinRate() {
-        return ((int)(((double)wins/games)*10000))/100.0;
+        return FormatterUtil.formatUnitaryToPercentage((double)wins/games);
     }
 
     public PlayerRankedLegend mostPlayedLegend() {
-        return Arrays.stream(legends)
-                .max((legend1, legend2) -> legend1.getGames() - legend2.getGames()).get();
+        return legends.length > 0 ? legends[0] : null;
     }
 
     public void setName(String name) {
@@ -71,6 +74,12 @@ public class PlayerRanked {
 
     public void setLegends(PlayerRankedLegend[] legends) {
         this.legends = legends;
+        Arrays.parallelSort(this.legends, (legend1, legend2) -> legend2.getGames() - legend1.getGames());
+    }
+
+    public void setTeams(PlayerRankedTeam[] teams) {
+        this.teams = teams;
+        Arrays.parallelSort(this.teams, (team1, team2) -> team2.getRating() - team1.getRating());
     }
 
     public String getName() {
@@ -115,5 +124,9 @@ public class PlayerRanked {
 
     public PlayerRankedLegend[] getLegends() {
         return legends;
+    }
+
+    public PlayerRankedTeam[] getTeams() {
+        return teams;
     }
 }

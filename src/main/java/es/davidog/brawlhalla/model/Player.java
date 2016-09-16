@@ -1,5 +1,6 @@
 package es.davidog.brawlhalla.model;
 
+import es.davidog.brawlhalla.util.FormatterUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -24,12 +25,19 @@ public class Player {
     private PlayerClan clan;
 
     public double getWinRate() {
-        return ((int)(((double)wins/games)*10000))/100.0;
+        return FormatterUtil.formatUnitaryToPercentage((double)wins/games);
     }
 
     public PlayerLegend mostPlayedLegend() {
-        return Arrays.stream(legends)
-                .max((legend1, legend2) -> legend1.getGames() - legend2.getGames()).get();
+        return legends.length > 0 ? legends[0] : null;
+    }
+
+    public String getFormattedMatchtime() {
+        int seconds = 0;
+        for(PlayerLegend l : legends) {
+            seconds += l.getMatchtime();
+        }
+        return FormatterUtil.formatSeconds(seconds);
     }
 
     public long getBrawlhalla_id() {
@@ -174,6 +182,7 @@ public class Player {
 
     public void setLegends(PlayerLegend[] legends) {
         this.legends = legends;
+        Arrays.parallelSort(this.legends, (legend1, legend2) -> legend2.getGames() - legend1.getGames());
     }
 
     public PlayerClan getClan() {

@@ -1,5 +1,6 @@
 package es.davidog.brawlhalla.model;
 
+import es.davidog.brawlhalla.util.FormatterUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -21,6 +22,26 @@ public class PlayerLegend {
     private int xp;
     private int level;
     private double xp_percentage;
+
+    public String getFormattedMatchtime() {
+        return FormatterUtil.formatSeconds(matchtime);
+    }
+
+    public String getFormattedTimeHeldWeaponOne() {
+        return FormatterUtil.formatSeconds(timeheldweaponone);
+    }
+
+    public String getFormattedTimeHeldWeaponTwo() {
+        return FormatterUtil.formatSeconds(timeheldweapontwo);
+    }
+
+    public String getFormattedName() {
+        return FormatterUtil.capitalizeFirstLetters(legend_name_key);
+    }
+
+    public double getWinRate() {
+        return FormatterUtil.formatUnitaryToPercentage((double)wins/games);
+    }
 
     public int getLegend_id() {
         return legend_id;
