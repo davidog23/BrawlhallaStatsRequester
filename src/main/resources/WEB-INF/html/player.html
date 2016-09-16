@@ -1,8 +1,10 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+<!--/*@thymesVar id="playerRanked" type="es.davidog.brawlhalla.model.PlayerRanked"*/-->
+<!--/*@thymesVar id="player" type="es.davidog.brawlhalla.model.Player"*/-->
 <head>
     <meta charset="utf-8">
-    <title>Home page</title>
+    <title th:text="${playerRanked.name}">Title</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <link href="/public/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
@@ -18,7 +20,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="/">Home</a>
+            <a class="navbar-brand" href="/">Brawlhalla Stats Requester</a>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav"></ul>
@@ -28,13 +30,40 @@
         </div>
     </div>
 </nav>
-
-<div class="container">
-    <!--/*@thymesVar id="player" type="es.davidog.brawlhalla.model.Player"*/-->
-    <h3 th:text="${player.name}" style="offset-before: 10em">Nombre</h3>
-    <!--/*@thymesVar id="playerRanked" type="es.davidog.brawlhalla.model.PlayerRanked"*/-->
-    <img style="height: 300px;" th:src="@{'/assets/' + ${playerRanked.mostPlayedLegend().getLegend_name_key().toUpperCase() + '.png'}}">
-
+<h3 th:text="${player.name}" class="col-lg-offset-0 col-lg-12">Nombre</h3>
+<div class="container row">
+    <div class="container col-lg-offset-0 col-lg-3">
+        <h4>Most Ranked Legend:</h4>
+        <img style="height: 300px;" th:src="@{'/assets/' + ${playerRanked.mostPlayedLegend().getLegend_name_key().toUpperCase() + '.png'}}">
+    </div>
+    <div class="jumbotron col-lg-9 row">
+        <div class="col-lg-5">
+            <h2>Ranked 1v1 Stats</h2>
+            <label th:text="'Rank: ' + ${playerRanked.getGlobal_rank()}"></label><br>
+            <label th:text="'Rating: ' + ${playerRanked.tier} + ' (' + ${playerRanked.rating} + ')'"></label><br>
+            <label th:utext="'Peak elo: ' + ${playerRanked.peak_rating}"></label>
+        </div>
+        <div class="col-lg-7">
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th>Legend</th>
+                    <th>Current Rating</th>
+                    <th>Peak</th>
+                    <th>Win Rate</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="legend : ${playerRanked.legends}">
+                    <td th:text="${legend.legend_name_key}">Legend</td>
+                    <td th:text="${legend.tier} + ' (' + ${legend.rating} + ')'">Current Rating</td>
+                    <td th:text="${legend.peak_rating}">Peak elo</td>
+                    <td th:text="${legend.getWinRate() + '%'}">Win Rate</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
 </div>
 
 <script type="application/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>

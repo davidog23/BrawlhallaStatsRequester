@@ -72,4 +72,48 @@ public class PlayerRanked {
     public void setLegends(PlayerRankedLegend[] legends) {
         this.legends = legends;
     }
+
+    public String getName() {
+        return name;
+    }
+
+    public long getBrawlhalla_id() {
+        return brawlhalla_id;
+    }
+
+    public int getRating() {
+        return rating;
+    }
+
+    public int getPeak_rating() {
+        return peak_rating;
+    }
+
+    public String getTier() {
+        return tier;
+    }
+
+    public int getWins() {
+        return wins;
+    }
+
+    public int getGames() {
+        return games;
+    }
+
+    public String getRegion() {
+        return region;
+    }
+
+    public long getGlobal_rank() {
+        return global_rank;
+    }
+
+    public long getRegion_rank() {
+        return region_rank;
+    }
+
+    public PlayerRankedLegend[] getLegends() {
+        return legends;
+    }
 }

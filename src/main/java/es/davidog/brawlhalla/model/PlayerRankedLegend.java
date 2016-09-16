@@ -16,7 +16,7 @@ public class PlayerRankedLegend {
     private int wins, games;
 
     public double getWinRate() {
-        return (double)wins/games;
+        return ((int)(((double)wins/games)*10000))/100.0;
     }
 
     public void setLegend_id(int legend_id) {
