@@ -1,0 +1,10 @@
+#!/bin/bash
+set -x
+if [ ! -d $OPENSHIFT_DATA_DIR/gradle-3.0 ]
+then
+    cd $OPENSHIFT_DATA_DIR
+    mkdir gradle
+    wget https://services.gradle.org/distributions/gradle-3.0-bin.zip
+    unzip gradle-3.0-bin.zip
+    rm -f gradle-3.0-bin.zip
+fi
