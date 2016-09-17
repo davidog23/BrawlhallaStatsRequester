@@ -9,9 +9,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.util.Arrays;
-import java.util.Collections;
-
 /**
  * Created by David on 13/09/2016.
  */
@@ -23,18 +20,23 @@ public class WebController {
     }
 
     @RequestMapping(value = "/search", method = RequestMethod.GET)
-    public ModelAndView getRankingSearch(@RequestParam("name") String name, @RequestParam("region") String region) {
-        RankingEntry[] entries = Queries.getRankingEntries(name, region);
+    public ModelAndView getRankingSearch(@RequestParam("name") String name, @RequestParam("region") String region, @ModelAttribute("p") PlayerQuery p) {
+        RankingEntry[] entries;
+        entries = p == null ? Queries.getRankingEntries(name, region) : Queries.getRankingEntries(p.getName(), p.getRegion());
         return new ModelAndView("ranking", "players", entries);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public ModelAndView getPlayerInfo(@PathVariable String id) {
-        long bid = Long.parseLong(id);
-        Player player = Queries.getPlayer(bid);
-        ModelAndView modelAndView = new ModelAndView("player", "player", player);
-        PlayerRanked playerRanked = Queries.getPlayerRanked(bid);
-        modelAndView.addObject("playerRanked", playerRanked);
-        return modelAndView;
+        try {
+            long bid = Long.parseLong(id);
+            Player player = Queries.getPlayer(bid);
+            ModelAndView modelAndView = new ModelAndView("player", "player", player);
+            PlayerRanked playerRanked = Queries.getPlayerRanked(bid);
+            modelAndView.addObject("playerRanked", playerRanked);
+            return modelAndView;
+        } catch (NumberFormatException e) {
+            return null;
+        }
     }
 }

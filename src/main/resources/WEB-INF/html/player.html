@@ -24,7 +24,15 @@
             <a class="navbar-brand" href="/">Brawlhalla Stats Requester</a>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
-            <ul class="nav navbar-nav"></ul>
+            <ul class="nav navbar-nav">
+                <li>
+                    <form action="#" th:object="${p}"  th:action="@{search}" id="search" name="search">
+                        <input type="text" id="name" th:field="*{name}" placeholder="Player Name" style="margin-top: 8%; margin-left: 5%;">
+                        <input type="hidden" value="all" th:field="*{region}">
+                    </form>
+                </li>
+                <li><a class="btn btn-block" id="sbutton" href="javascript:document.search.submit()" style="margin-left: 5%;">Search</a></li>
+            </ul>
             <ul class="nav navbar-nav navbar-right" >
             </ul>
         </div>
@@ -36,7 +44,7 @@
     <div class="row">
         <div class="col-md-2">
             <h4>Most Played Legend:</h4>
-            <img style="height: 300px;" th:src="@{'/assets/' + ${player.mostPlayedLegend().getLegend_name_key().toUpperCase().replace(' ', '_') + '.png'}}">
+            <img style="max-width: 300px; max-height: 285px" th:src="@{'/assets/' + ${player.mostPlayedLegend().getLegend_name_key().toUpperCase().replace(' ', '_') + '.png'}}">
         </div>
         <div class="jumbotron col-md-10">
             <div class="container-fluid">
@@ -78,7 +86,7 @@
     <div class="row">
         <div class="col-md-2">
             <h4>Most Ranked Legend:</h4>
-            <img style="height: 300px;" th:src="@{'/assets/' + ${playerRanked.mostPlayedLegend().getLegend_name_key().toUpperCase().replace(' ', '_') + '.png'}}">
+            <img style="max-width: 300px; max-height: 285px" th:src="@{'/assets/' + ${playerRanked.mostPlayedLegend().getLegend_name_key().toUpperCase().replace(' ', '_') + '.png'}}">
         </div>
         <div class="jumbotron col-md-10">
             <div class="container-fluid">
