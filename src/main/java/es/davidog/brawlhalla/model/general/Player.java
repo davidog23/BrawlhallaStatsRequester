@@ -28,6 +28,10 @@ public class Player {
         return FormatterUtil.formatUnitaryToPercentage((double)wins/games);
     }
 
+    public boolean hasClan() {
+        return clan != null;
+    }
+
     public PlayerLegend mostPlayedLegend() {
         return legends.length > 0 ? legends[0] : null;
     }

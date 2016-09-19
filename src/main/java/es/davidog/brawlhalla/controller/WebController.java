@@ -1,5 +1,6 @@
 package es.davidog.brawlhalla.controller;
 
+import es.davidog.brawlhalla.model.clans.Clan;
 import es.davidog.brawlhalla.model.general.Player;
 import es.davidog.brawlhalla.model.searchs.PlayerQuery;
 import es.davidog.brawlhalla.model.ranked.PlayerRanked;
@@ -35,6 +36,17 @@ public class WebController {
             PlayerRanked playerRanked = Queries.getPlayerRanked(bid);
             modelAndView.addObject("playerRanked", playerRanked);
             return modelAndView;
+        } catch (NumberFormatException e) {
+            return null;
+        }
+    }
+
+    @RequestMapping(value = "/clan/{id}", method = RequestMethod.GET)
+    public ModelAndView getClanInfo(@PathVariable String id) {
+        try {
+            long cid = Long.parseLong(id);
+            Clan clan = Queries.getClan(cid);
+            return new ModelAndView("clan", "clan", clan);
         } catch (NumberFormatException e) {
             return null;
         }

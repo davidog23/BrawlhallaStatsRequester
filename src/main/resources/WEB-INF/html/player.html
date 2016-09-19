@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<!--/*@thymesVar id="playerRanked" type="es.davidog.brawlhalla.model.PlayerRanked"*/-->
-<!--/*@thymesVar id="player" type="es.davidog.brawlhalla.model.Player"*/-->
+<!--/*@thymesVar id="playerRanked" type="es.davidog.brawlhalla.model.ranked.PlayerRanked"*/-->
+<!--/*@thymesVar id="player" type="es.davidog.brawlhalla.model.general.Player"*/-->
 <head>
     <meta charset="utf-8">
     <title th:text="${playerRanked.name}">Title</title>
@@ -40,7 +40,7 @@
 </nav>
 
 <div class="container-fluid">
-    <h3 th:text="${player.name}">Nombre</h3>
+    <h2 th:inline="text">[[${player.name}]] <a th:if="${player.hasClan()}" th:href="@{${'/clan/' + player.clan.clan_id}}" th:text="'<' + ${player.clan.clan_name} + '>'">Clan Name</a></h2>
     <div class="row">
         <div class="col-md-2">
             <h4>Most Played Legend:</h4>
@@ -50,7 +50,7 @@
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-md-3">
-                        <h2>General Player Stats</h2>
+                        <h3>General Player Stats</h3>
                         <label th:text="'Level: ' + ${player.level}">Level</label><br>
                         <label th:text="'Time Played: ' + ${player.getFormattedMatchtime()}">Time Played</label><br>
                         <label th:text="'Win-Loss: ' + ${player.wins} + '-' + ${player.games - player.wins}">Win-Loss</label><br>
@@ -92,7 +92,7 @@
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-md-3">
-                        <h2>Ranked 1v1 Stats</h2>
+                        <h3>Ranked 1v1 Stats</h3>
                         <label th:text="'Global Rank: ' + ${playerRanked.getGlobal_rank()}">Global Rank</label><br>
                         <label th:text="'Regional Rank: ' + ${playerRanked.getRegion_rank()} + ' (' + ${playerRanked.region.toUpperCase()} + ')'">Regional Rank</label><br>
                         <label th:text="'Rating: ' + ${playerRanked.tier} + ' (' + ${playerRanked.rating} + ')'">Tier+Current Elo</label><br>

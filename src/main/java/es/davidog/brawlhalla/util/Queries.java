@@ -1,6 +1,7 @@
 package es.davidog.brawlhalla.util;
 
 import es.davidog.brawlhalla.MainClass;
+import es.davidog.brawlhalla.model.clans.Clan;
 import es.davidog.brawlhalla.model.general.Player;
 import es.davidog.brawlhalla.model.ranked.PlayerRanked;
 import es.davidog.brawlhalla.model.searchs.RankingEntry;
@@ -39,7 +40,7 @@ public class Queries {
 
     private static <T> T checkResponse(ResponseEntity<T> apiResponse) {
         if (apiResponse.getStatusCode().is2xxSuccessful()) {
-            logger.info("En estos 15 minutos ha habido " + REQUESTS.incrementAndGet() + "/" + REQUEST_PER_15MIN + " peticiones");
+            logger.info("En estos 15 minutos han habido " + REQUESTS.incrementAndGet() + "/" + REQUEST_PER_15MIN + " peticiones");
             return apiResponse.getBody();
         } else {
             logger.warn(apiResponse.getStatusCode().getReasonPhrase());
@@ -73,6 +74,15 @@ public class Queries {
         builder.append("&api_key=");
         builder.append(MainClass.TOKEN);
         ResponseEntity<RankingEntry[]> apiResponse = rest.exchange(builder.toString(), HttpMethod.GET, new HttpEntity<String>(getCorrectHeaders()), RankingEntry[].class);
+        return checkResponse(apiResponse);
+    }
+
+    public static Clan getClan(long id) {
+        StringBuilder builder = new StringBuilder("https://api.brawlhalla.com/clan/");
+        builder.append(Long.toString(id));
+        builder.append("/?api_key=");
+        builder.append(MainClass.TOKEN);
+        ResponseEntity<Clan> apiResponse = rest.exchange(builder.toString(), HttpMethod.GET, new HttpEntity<String>(getCorrectHeaders()), Clan.class);
         return checkResponse(apiResponse);
     }
 }
