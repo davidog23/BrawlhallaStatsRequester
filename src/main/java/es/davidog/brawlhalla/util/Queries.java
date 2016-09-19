@@ -1,17 +1,20 @@
 package es.davidog.brawlhalla.util;
 
 import es.davidog.brawlhalla.MainClass;
-import es.davidog.brawlhalla.model.Player;
-import es.davidog.brawlhalla.model.PlayerRanked;
-import es.davidog.brawlhalla.model.RankingEntry;
+import es.davidog.brawlhalla.model.general.Player;
+import es.davidog.brawlhalla.model.ranked.PlayerRanked;
+import es.davidog.brawlhalla.model.searchs.RankingEntry;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.*;
 import org.springframework.web.client.HttpStatusCodeException;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.Collections;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * Created by David on 13/09/2016.
@@ -19,6 +22,13 @@ import java.util.Collections;
 public class Queries {
     private static final Logger logger = LoggerFactory.getLogger(Queries.class);
     private static final RestTemplate rest = new RestTemplate();
+    public static final int REQUEST_PER_15MIN = 180;
+    public static final AtomicInteger REQUESTS = new AtomicInteger();
+    private static final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
+
+    static {
+        scheduler.scheduleAtFixedRate(() -> REQUESTS.set(0), 0, 15, TimeUnit.MINUTES);
+    }
 
     private static HttpHeaders getCorrectHeaders() {
         HttpHeaders headers = new HttpHeaders();
@@ -29,6 +39,7 @@ public class Queries {
 
     private static <T> T checkResponse(ResponseEntity<T> apiResponse) {
         if (apiResponse.getStatusCode().is2xxSuccessful()) {
+            logger.info("En estos 15 minutos ha habido " + REQUESTS.incrementAndGet() + "/" + REQUEST_PER_15MIN + " peticiones");
             return apiResponse.getBody();
         } else {
             logger.warn(apiResponse.getStatusCode().getReasonPhrase());
