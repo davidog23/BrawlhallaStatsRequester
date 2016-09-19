@@ -42,9 +42,9 @@
         </tr>
         </thead>
         <tbody>
-        <!--/*@thymesVar id="players" type="es.davidog.brawlhalla.model.RankingEntry[]"*/-->
+        <!--/*@thymesVar id="players" type="es.davidog.brawlhalla.model.searchs.RankingEntry[]"*/-->
         <tr th:each="player : ${players}">
-            <!--/*@thymesVar id="player" type="es.davidog.brawlhalla.model.RankingEntry"*/-->
+            <!--/*@thymesVar id="player" type="es.davidog.brawlhalla.model.searchs.RankingEntry"*/-->
             <td th:text="${player.rank}">Rank</td>
             <td><a th:href="@{${player.brawlhalla_id}}" th:text="${player.name}">Name</a></td>
             <td th:text="${player.brawlhalla_id}">ID</td>

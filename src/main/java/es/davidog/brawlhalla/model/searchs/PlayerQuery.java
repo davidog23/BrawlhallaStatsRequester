@@ -1,4 +1,4 @@
-package es.davidog.brawlhalla.model;
+package es.davidog.brawlhalla.model.searchs;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

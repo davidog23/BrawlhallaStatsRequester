@@ -1,4 +1,4 @@
-package es.davidog.brawlhalla.model;
+package es.davidog.brawlhalla.model.ranked;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import es.davidog.brawlhalla.util.FormatterUtil;

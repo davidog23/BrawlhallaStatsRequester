@@ -1,9 +1,9 @@
 package es.davidog.brawlhalla.controller;
 
-import es.davidog.brawlhalla.model.Player;
-import es.davidog.brawlhalla.model.PlayerQuery;
-import es.davidog.brawlhalla.model.PlayerRanked;
-import es.davidog.brawlhalla.model.RankingEntry;
+import es.davidog.brawlhalla.model.general.Player;
+import es.davidog.brawlhalla.model.searchs.PlayerQuery;
+import es.davidog.brawlhalla.model.ranked.PlayerRanked;
+import es.davidog.brawlhalla.model.searchs.RankingEntry;
 import es.davidog.brawlhalla.util.Queries;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -26,7 +26,7 @@ public class WebController {
         return new ModelAndView("ranking", "players", entries);
     }
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/player/{id}", method = RequestMethod.GET)
     public ModelAndView getPlayerInfo(@PathVariable String id) {
         try {
             long bid = Long.parseLong(id);
