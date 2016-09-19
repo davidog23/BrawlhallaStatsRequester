@@ -42,6 +42,7 @@
     <h2 th:text="${clan.clan_name}">Clan Name</h2>
     <div class="jumbotron">
         <h3>Clan Stats</h3>
+        <label th:text="'Clan Create Date: ' + ${clan.getFormattedDate()}">Date</label><br>
         <label th:text="'Total XP: ' + ${clan.clan_xp}"></label>
         <div class="container-fluid">
             <table class="table table-striped header-fixed">
@@ -49,7 +50,7 @@
                 <tr>
                     <th style="width: 25%">Player</th>
                     <th style="width: 25%">Rank</th>
-                    <!--WIP<th style="width: 25%">Join Date</th>-->
+                    <th style="width: 25%">Join Date</th>
                     <th style="width: 25%">Clan XP</th>
                 </tr>
                 </thead>
@@ -57,6 +58,7 @@
                 <tr th:each="player : ${clan.clan}">
                     <td style="width: 25%"><a th:text="${player.name}" th:href="@{${'/player/' + player.brawlhalla_id}}">Name</a></td>
                     <td style="width: 25%" th:text="${player.rank}">Rank</td>
+                    <td style="width: 25%" th:text="${player.getFormattedDate()}">Join Date</td>
                     <td style="width: 25%;" th:text="${player.xp}">Clan XP</td>
                 </tr>
                 </tbody>

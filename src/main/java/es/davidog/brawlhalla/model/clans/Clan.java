@@ -46,7 +46,7 @@ public class Clan {
 
     public void setClan_create_date(long clan_create_date) {
         this.clan_create_date = clan_create_date;
-        this.createDate = new Date(clan_create_date);
+        this.createDate = new Date(clan_create_date * 1000);
     }
 
     public String getClan_xp() {

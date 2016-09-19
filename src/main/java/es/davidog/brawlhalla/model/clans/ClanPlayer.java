@@ -54,7 +54,7 @@ public class ClanPlayer {
 
     public void setJoin_date(long join_date) {
         this.join_date = join_date;
-        this.joinDate = new Date(join_date);
+        this.joinDate = new Date(join_date * 1000);
     }
 
     public int getXp() {
