@@ -1,8 +1,9 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+<!--/*@thymesVar id="clan" type="es.davidog.brawlhalla.model.clans.Clan"*/-->
 <head>
     <meta charset="utf-8">
-    <title>Ranking Search</title>
+    <title th:text="${clan.clan_name}">Title</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <link href="/public/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
@@ -10,7 +11,7 @@
 </head>
 <body>
 
-<div class="container">
+<div class="container-fluid">
     <nav role="navigation" class="navbar navbar-default">
         <div class="container-fluid">
             <div class="navbar-header">
@@ -42,33 +43,33 @@
         </div>
     </nav>
 
-    <h2>Ranking Search</h2>
-
-    <table class="table table-striped">
-        <thead>
-        <tr>
-            <th>Rank</th>
-            <th>Name</th>
-            <th>Brawlhalla ID</th>
-            <th>Tier</th>
-            <th>Win Rate</th>
-        </tr>
-        </thead>
-        <tbody>
-        <!--/*@thymesVar id="players" type="es.davidog.brawlhalla.model.searchs.RankingEntry[]"*/-->
-        <tr th:each="player : ${players}">
-            <!--/*@thymesVar id="player" type="es.davidog.brawlhalla.model.searchs.RankingEntry"*/-->
-            <td th:text="${player.rank}">Rank</td>
-            <td><a th:href="@{${'/player/' + player.brawlhalla_id}}" th:text="${player.name}">Name</a></td>
-            <td th:text="${player.brawlhalla_id}">ID</td>
-            <td th:text="${player.tier}">Tier</td>
-            <td th:text="${player.getWinRate() + '%'}">Win Rate</td>
-        </tr>
-        </tbody>
-    </table>
+    <h2 th:text="${clan.clan_name}">Clan Name</h2>
+    <div class="jumbotron">
+        <h3>Clan Stats</h3>
+        <label th:text="'Clan Create Date: ' + ${clan.getFormattedDate()}">Date</label><br>
+        <label th:text="'Total XP: ' + ${clan.clan_xp}"></label>
+        <div class="container-fluid table-responsive">
+            <table class="table table-striped" style="overflow-y: hidden">
+                <thead>
+                <tr>
+                    <th style="width: 25%">Player</th>
+                    <th style="width: 25%">Rank</th>
+                    <th style="width: 25%">Join Date</th>
+                    <th style="width: 25%">Clan XP</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="player : ${clan.clan}">
+                    <td style="width: 25%"><a th:text="${player.name}" th:href="@{${'/player/' + player.brawlhalla_id}}">Name</a></td>
+                    <td style="width: 25%" th:text="${player.rank}">Rank</td>
+                    <td style="width: 25%" th:text="${player.getFormattedDate()}">Join Date</td>
+                    <td style="width: 25%;" th:text="${player.xp}">Clan XP</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
 </div>
 
-<script type="application/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-<script type="application/javascript" src="/public/js/bootstrap.min.js" th:src="@{/js/bootstrap.min.js}"></script>
 </body>
 </html>

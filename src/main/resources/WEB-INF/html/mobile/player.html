@@ -8,41 +8,54 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <link href="/public/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
+    <link href="/public/css/mobile/base.css" th:href="@{/css/mobile/base.css}" rel="stylesheet">
     <link href="/public/css/tables.css" th:href="@{/css/tables.css}" rel="stylesheet">
 </head>
 <body>
 
-<nav role="navigation" class="navbar navbar-default">
-    <div class="container-fluid">
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="/">Brawlhalla Stats Requester</a>
-        </div>
-        <div id="navbar" class="navbar-collapse collapse">
-            <ul class="nav navbar-nav"></ul>
-            <ul class="nav navbar-nav navbar-right" >
-            </ul>
-        </div>
-    </div>
-</nav>
-
 <div class="container-fluid">
-    <h3 th:text="${player.name}">Nombre</h3>
+    <nav role="navigation" class="navbar navbar-default">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="/">Brawlhalla Stats Requester</a>
+            </div>
+            <div id="navbar" class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li>
+                        <form action="#" th:object="${p}"  th:action="@{/search}" id="search" name="search">
+                            <input type="hidden" value="all" th:field="*{region}">
+                            <div class="input-group">
+                                <input type="text" class="form-control" id="name" th:field="*{name}" placeholder="Player Name" style="margin-top: 5%">
+                                <span class="input-group-btn">
+                                    <a class="btn btn-default" id="sbutton" href="javascript:document.search.submit()" style="margin-top: 18%">Search</a>
+                                </span>
+                            </div>
+                        </form>
+                    </li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right" >
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <h2 th:inline="text">[[${player.name}]]<br> <a th:if="${player.hasClan()}" th:href="@{${'/clan/' + player.clan.clan_id}}" th:text="'<' + ${player.clan.clan_name} + '>'">Clan Name</a></h2>
     <div class="row">
         <div class="col-md-2">
             <h4>Most Played Legend:</h4>
-            <img style="height: 300px;" th:src="@{'/assets/' + ${player.mostPlayedLegend().getLegend_name_key().toUpperCase() + '.png'}}">
+            <img style="max-width: 300px; max-height: 285px" th:src="@{'/assets/' + ${player.mostPlayedLegend().getLegend_name_key().toUpperCase().replace(' ', '_') + '.png'}}">
         </div>
         <div class="jumbotron col-md-10">
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-md-3">
-                        <h2>General Player Stats</h2>
+                        <h3>General Player Stats</h3>
                         <label th:text="'Level: ' + ${player.level}">Level</label><br>
                         <label th:text="'Time Played: ' + ${player.getFormattedMatchtime()}">Time Played</label><br>
                         <label th:text="'Win-Loss: ' + ${player.wins} + '-' + ${player.games - player.wins}">Win-Loss</label><br>
@@ -78,13 +91,13 @@
     <div class="row">
         <div class="col-md-2">
             <h4>Most Ranked Legend:</h4>
-            <img style="height: 300px;" th:src="@{'/assets/' + ${playerRanked.mostPlayedLegend().getLegend_name_key().toUpperCase() + '.png'}}">
+            <img style="max-width: 300px; max-height: 285px" th:src="@{'/assets/' + ${playerRanked.mostPlayedLegend().getLegend_name_key().toUpperCase().replace(' ', '_') + '.png'}}">
         </div>
         <div class="jumbotron col-md-10">
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-md-3">
-                        <h2>Ranked 1v1 Stats</h2>
+                        <h3>Ranked 1v1 Stats</h3>
                         <label th:text="'Global Rank: ' + ${playerRanked.getGlobal_rank()}">Global Rank</label><br>
                         <label th:text="'Regional Rank: ' + ${playerRanked.getRegion_rank()} + ' (' + ${playerRanked.region.toUpperCase()} + ')'">Regional Rank</label><br>
                         <label th:text="'Rating: ' + ${playerRanked.tier} + ' (' + ${playerRanked.rating} + ')'">Tier+Current Elo</label><br>
