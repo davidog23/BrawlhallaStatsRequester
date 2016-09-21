@@ -15,10 +15,15 @@ public class PlayerRankedTeam {
     private String tier;
     private int wins, games;
     private String teamname;
+    private String[] names;
     private long global_rank;
 
     public double getWinRate() {
         return FormatterUtil.formatUnitaryToPercentage((double)wins/games);
+    }
+
+    public String[] getNames() {
+        return names;
     }
 
     public long getBrawlhalla_id_one() {
@@ -83,6 +88,7 @@ public class PlayerRankedTeam {
 
     public void setTeamname(String teamname) {
         this.teamname = teamname;
+        names = teamname.split("\\+");
     }
 
     public long getGlobal_rank() {

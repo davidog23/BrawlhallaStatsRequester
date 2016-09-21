@@ -6,6 +6,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.Arrays;
+import java.util.stream.Collectors;
 
 /**
  * Created by David on 12/09/2016.
@@ -23,6 +24,10 @@ public class PlayerRanked {
     private PlayerRankedLegend[] legends;
     @JsonProperty("2v2")
     private PlayerRankedTeam[] teams;
+
+    public boolean hasAnyTeam() {
+        return teams != null && teams.length > 0;
+    }
 
     public double getWinRate() {
         return FormatterUtil.formatUnitaryToPercentage((double)wins/games);
@@ -78,7 +83,9 @@ public class PlayerRanked {
     }
 
     public void setTeams(PlayerRankedTeam[] teams) {
-        this.teams = teams;
+        int nITeams = teams.length;
+        this.teams = Arrays.stream(teams).filter(team -> team.getNames().length == 2).collect(Collectors.toList()).toArray(new PlayerRankedTeam[0]);
+        if (nITeams != this.teams.length) logger.info("The player " + name + "(" + brawlhalla_id + ") has a team not reflected in the web");
         Arrays.parallelSort(this.teams, (team1, team2) -> team2.getRating() - team1.getRating());
     }
 
