@@ -10,18 +10,26 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.Optional;
+
 /**
  * Created by David on 13/09/2016.
  */
 @Controller
 public class WebController {
     @RequestMapping(value = "/", method = RequestMethod.GET)
-    public ModelAndView getIndex() {
-        return new ModelAndView("index", "player", new PlayerQuery());
+    public ModelAndView getIndex(@RequestParam(required = false) Optional<String> error) {
+        ModelAndView modelAndView = new ModelAndView("index", "player", new PlayerQuery());
+        modelAndView.addObject("error", error);
+        return modelAndView;
     }
 
     @RequestMapping(value = "/search", method = RequestMethod.GET)
     public ModelAndView getRankingSearch(@RequestParam("name") String name, @RequestParam("region") String region, @ModelAttribute("p") PlayerQuery p) {
+        if (Queries.REQUESTS.get() >= Queries.REQUEST_PER_15MIN) {
+            ModelAndView modelAndView = new ModelAndView("redirect:/?error");
+            return modelAndView;
+        }
         RankingEntry[] entries;
         entries = p == null ? Queries.getRankingEntries(name, region) : Queries.getRankingEntries(p.getName(), p.getRegion());
         return new ModelAndView("ranking", "players", entries);
@@ -29,6 +37,10 @@ public class WebController {
 
     @RequestMapping(value = "/player/{id}", method = RequestMethod.GET)
     public ModelAndView getPlayerInfo(@PathVariable String id) {
+        if (Queries.REQUESTS.get() >= Queries.REQUEST_PER_15MIN) {
+            ModelAndView modelAndView = new ModelAndView("redirect:/?error");
+            return modelAndView;
+        }
         try {
             long bid = Long.parseLong(id);
             Player player = Queries.getPlayer(bid);
@@ -43,6 +55,10 @@ public class WebController {
 
     @RequestMapping(value = "/clan/{id}", method = RequestMethod.GET)
     public ModelAndView getClanInfo(@PathVariable String id) {
+        if (Queries.REQUESTS.get() >= Queries.REQUEST_PER_15MIN) {
+            ModelAndView modelAndView = new ModelAndView("redirect:/?error");
+            return modelAndView;
+        }
         try {
             long cid = Long.parseLong(id);
             Clan clan = Queries.getClan(cid);

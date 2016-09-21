@@ -45,6 +45,7 @@
             <option value="aus">Australia</option>
         </select>
         <button class="btn btn-lg btn-primary btn-block" type="submit">Search</button>
+        <p th:if="${param.error}" style="color: #761c19">Too many request in 15 minutes, try again later.</p>
     </form>
 </div>
 

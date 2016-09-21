@@ -30,7 +30,7 @@
 </nav>
 
 <div class="container">
-    <img src="/public/assets/BrawlhallaLogo.png" th:src="@{/assets/BrawlhallaLogo.png}" width="80%" class="col-md-offset-1" style="margin-top: 70px">
+    <img src="/public/assets/BrawlhallaLogo.png" th:src="@{/assets/BrawlhallaLogo.png}" width="80%" class="col-md-offset-1" style="margin-top: 40px">
     <form class="form-search" action="#" th:object="${player}" th:action="@{search}" style="margin-top: 50px">
         <input class="form-control" type="text" th:field="*{name}" placeholder="Player Name" required autofocus>
         <label for="region">Region:</label>
@@ -44,6 +44,7 @@
             <option value="aus">Australia</option>
         </select>
         <button class="btn btn-lg btn-primary btn-block" type="submit">Search</button>
+        <p th:if="${param.error}" style="color: #761c19">Too many request in 15 minutes, try again later.</p>
     </form>
 </div>
 
