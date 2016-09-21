@@ -131,20 +131,24 @@
             <table class="table table-striped header-fixed">
                 <thead>
                 <tr>
-                    <th style="width: 20%">Global Rank</th>
-                    <th style="width: 20%">Player 1</th>
-                    <th style="width: 19%">Player 2</th>
-                    <th style="width: 20%">Current Rating</th>
-                    <th style="width: 20%">Win Rate</th>
+                    <th style="width: 14%">Global Rank</th>
+                    <th style="width: 14%">Player 1</th>
+                    <th style="width: 14%">Player 2</th>
+                    <th style="width: 13%">Current Rating</th>
+                    <th style="width: 14%">Peak Rating</th>
+                    <th style="width: 14%">Win-Loss</th>
+                    <th style="width: 14%">Win Rate</th>
                 </tr>
                 </thead>
                 <tbody>
                 <tr th:each="team : ${playerRanked.teams}">
-                    <td th:text="${team.global_rank}" style="width: 20%">Rank</td>
-                    <td style="width: 20%"><a th:text="${team.names[0]}" th:href="@{${'/player/' + team.brawlhalla_id_one}}">Player 1</a></td>
-                    <td style="width: 20%"><a th:text="${team.names[1]}" th:href="@{${'/player/' + team.brawlhalla_id_two}}">Player 2</a></td>
-                    <td th:text="${team.tier} + ' (' + ${team.rating} + ')'" style="width: 20%">Current Rating</td>
-                    <td th:text="${team.getWinRate() + '%'}" style="width: 20%">Win Rate</td>
+                    <td th:text="${team.global_rank}" style="width: 14%">Rank</td>
+                    <td style="width: 14%"><a th:text="${team.names[0]}" th:href="@{${'/player/' + team.brawlhalla_id_one}}">Player 1</a></td>
+                    <td style="width: 14%"><a th:text="${team.names[1]}" th:href="@{${'/player/' + team.brawlhalla_id_two}}">Player 2</a></td>
+                    <td th:text="${team.tier} + ' (' + ${team.rating} + ')'" style="width: 14%">Current Rating</td>
+                    <td th:text="${team.peak_rating}" style="width: 14%">Peak Rating</td>
+                    <td th:text="${team.wins + '-' + (team.games - team.wins)}" style="width: 14%">Win-Loss</td>
+                    <td th:text="${team.getWinRate() + '%'}" style="width: 14%">Win Rate</td>
                 </tr>
                 </tbody>
             </table>
