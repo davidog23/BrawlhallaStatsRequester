@@ -16,6 +16,16 @@ public class PlayerRankedLegend {
     private String tier;
     private int wins, games;
 
+    public PlayerRankedLegend() {
+        legend_id = 0;
+        legend_name_key = "";
+        rating = 0;
+        peak_rating = 0;
+        tier = "";
+        wins = 0;
+        games = 0;
+    }
+
     public double getWinRate() {
         return FormatterUtil.formatUnitaryToPercentage((double)wins/games);
     }

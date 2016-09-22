@@ -25,6 +25,12 @@ public class PlayerRanked {
     @JsonProperty("2v2")
     private PlayerRankedTeam[] teams;
 
+    public PlayerRanked() {
+        name = "";
+        tier = "Undefined";
+        region = "Undefined";
+    }
+
     public boolean hasAnyTeam() {
         return teams != null && teams.length > 0;
     }
@@ -34,7 +40,7 @@ public class PlayerRanked {
     }
 
     public PlayerRankedLegend mostPlayedLegend() {
-        return legends.length > 0 ? legends[0] : null;
+        return (legends != null) && (legends.length > 0) ? legends[0] : null;
     }
 
     public void setName(String name) {

@@ -33,7 +33,7 @@ public class Player {
     }
 
     public PlayerLegend mostPlayedLegend() {
-        return legends.length > 0 ? legends[0] : null;
+        return legends != null && legends.length > 0 ? legends[0] : null;
     }
 
     public String getFormattedMatchtime() {
