@@ -32,6 +32,7 @@ public class WebController {
         }
         RankingEntry[] entries;
         entries = p == null ? Queries.getRankingEntries(name, region) : Queries.getRankingEntries(p.getName(), p.getRegion());
+        if (entries.length == 1 && entries[0].getName().equals(name)) return new ModelAndView("redirect:/player/" + entries[0].getBrawlhalla_id());
         return new ModelAndView("ranking", "players", entries);
     }
 
