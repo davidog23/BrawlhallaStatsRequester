@@ -28,7 +28,12 @@ public class Queries {
     private static final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
 
     static {
-        scheduler.scheduleAtFixedRate(() -> REQUESTS.set(0), 0, 15, TimeUnit.MINUTES);
+        scheduler.scheduleAtFixedRate(() -> {
+            if (REQUESTS.get() >= REQUEST_PER_15MIN) {
+                logger.warn("PETICIONES MÁXIMAS PERMITIDAS A LA API REALIZADAS");
+            }
+            REQUESTS.set(0);
+        }, 0, 15, TimeUnit.MINUTES);
     }
 
     private static HttpHeaders getCorrectHeaders() {
@@ -40,7 +45,8 @@ public class Queries {
 
     private static <T> T checkResponse(ResponseEntity<T> apiResponse) {
         if (apiResponse.getStatusCode().is2xxSuccessful()) {
-            logger.info("En estos 15 minutos han habido " + REQUESTS.incrementAndGet() + "/" + REQUEST_PER_15MIN + " peticiones");
+            int calls = REQUESTS.incrementAndGet();
+            logger.debug("En estos 15 minutos han habido " + calls + "/" + REQUEST_PER_15MIN + " peticiones");
             return apiResponse.getBody();
         } else {
             logger.warn(apiResponse.getStatusCode().getReasonPhrase());
