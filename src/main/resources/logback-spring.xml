@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <include resource="org/springframework/boot/logging/logback/base.xml" />
+    <springProfile name="debug">
+        <logger name="es.davidog.brawlhalla" level="DEBUG" additivity="false">
+            <appender-ref ref="CONSOLE" />
+        </logger>
+    </springProfile>
+    <springProfile name="prod">
+        <logger name="es.davidog.brawlhalla" level="INFO" additivity="false">
+            <appender-ref ref="FILE" />
+        </logger>
+    </springProfile>
+</configuration>
