@@ -26,7 +26,7 @@ public class WebController {
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public ModelAndView getIndex(@RequestParam(required = false) Optional<String> error, HttpServletRequest request) {
         String ipAddress = ServletUtil.getClientIpAddr(request);
-        logger.info("Conexión desde " + (ipAddress == null ? request.getRemoteAddr() : ipAddress));
+        logger.info("Connection from " + (ipAddress == null ? request.getRemoteAddr() : ipAddress));
         ModelAndView modelAndView = new ModelAndView("index", "player", new PlayerQuery());
         modelAndView.addObject("error", error);
         return modelAndView;
