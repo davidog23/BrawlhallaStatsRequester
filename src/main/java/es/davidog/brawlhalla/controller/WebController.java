@@ -6,6 +6,7 @@ import es.davidog.brawlhalla.model.searchs.PlayerQuery;
 import es.davidog.brawlhalla.model.ranked.PlayerRanked;
 import es.davidog.brawlhalla.model.searchs.RankingEntry;
 import es.davidog.brawlhalla.util.Queries;
+import es.davidog.brawlhalla.util.ServletUtil;
 import org.apache.catalina.servlet4preview.http.HttpServletRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,7 +25,8 @@ public class WebController {
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public ModelAndView getIndex(@RequestParam(required = false) Optional<String> error, HttpServletRequest request) {
-        logger.info("Conexión desde " + request.getRemoteAddr());
+        String ipAddress = ServletUtil.getClientIpAddr(request);
+        logger.info("Conexión desde " + (ipAddress == null ? request.getRemoteAddr() : ipAddress));
         ModelAndView modelAndView = new ModelAndView("index", "player", new PlayerQuery());
         modelAndView.addObject("error", error);
         return modelAndView;
