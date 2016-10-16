@@ -1,10 +1,10 @@
 package es.davidog.brawlhalla.util;
 
 import es.davidog.brawlhalla.MainClass;
-import es.davidog.brawlhalla.model.clans.Clan;
-import es.davidog.brawlhalla.model.general.Player;
-import es.davidog.brawlhalla.model.ranked.PlayerRanked;
-import es.davidog.brawlhalla.model.searchs.RankingEntry;
+import es.davidog.brawlhalla.api.clans.Clan;
+import es.davidog.brawlhalla.api.general.Player;
+import es.davidog.brawlhalla.api.ranked.PlayerRanked;
+import es.davidog.brawlhalla.api.searchs.RankingEntry;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.*;

@@ -1,10 +1,10 @@
 package es.davidog.brawlhalla.controller;
 
-import es.davidog.brawlhalla.model.clans.Clan;
-import es.davidog.brawlhalla.model.general.Player;
-import es.davidog.brawlhalla.model.searchs.PlayerQuery;
-import es.davidog.brawlhalla.model.ranked.PlayerRanked;
-import es.davidog.brawlhalla.model.searchs.RankingEntry;
+import es.davidog.brawlhalla.api.clans.Clan;
+import es.davidog.brawlhalla.api.general.Player;
+import es.davidog.brawlhalla.api.ranked.PlayerRanked;
+import es.davidog.brawlhalla.api.searchs.PlayerQuery;
+import es.davidog.brawlhalla.api.searchs.RankingEntry;
 import es.davidog.brawlhalla.util.Queries;
 import es.davidog.brawlhalla.util.ServletUtil;
 import org.apache.catalina.servlet4preview.http.HttpServletRequest;
