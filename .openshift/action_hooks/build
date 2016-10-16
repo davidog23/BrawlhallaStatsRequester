@@ -6,4 +6,5 @@ export GRADLE_HOME=$OPENSHIFT_DATA_DIR/gradle-3.0
 export PATH=$GRADLE_HOME/bin:$PATH
 export JAVA_HOME=/etc/alternatives/java_sdk_1.8.0
 export PATH=$JAVA_HOME/bin:$PATH
-gradle build -x test
+echo $OPENSHIFT_REPO_DIR
+./gradlew build -x test
