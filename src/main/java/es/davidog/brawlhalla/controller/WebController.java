@@ -39,7 +39,8 @@ public class WebController {
             return modelAndView;
         }
         RankingEntry[] entries;
-        entries = p == null ? Queries.getRankingEntries(name, region) : Queries.getRankingEntries(p.getName(), p.getRegion());
+        entries = p == null ? Queries.getResponse(Queries.getRankingEntries(name, region), RankingEntry[].class) :
+                            Queries.getResponse(Queries.getRankingEntries(p.getName(), p.getRegion()), RankingEntry[].class);
         if (entries.length == 1 && entries[0].getName().equals(name)) return new ModelAndView("redirect:/player/" + entries[0].getBrawlhalla_id());
         return new ModelAndView("ranking", "players", entries);
     }
@@ -52,9 +53,9 @@ public class WebController {
         }
         try {
             long bid = Long.parseLong(id);
-            Player player = Queries.getPlayer(bid);
+            Player player = Queries.getResponse(Queries.getPlayer(bid), Player.class);
             ModelAndView modelAndView = new ModelAndView("player", "player", player);
-            PlayerRanked playerRanked = Queries.getPlayerRanked(bid);
+            PlayerRanked playerRanked = Queries.getResponse(Queries.getPlayerRanked(bid), PlayerRanked.class);
             modelAndView.addObject("playerRanked", playerRanked);
             return modelAndView;
         } catch (NumberFormatException e) {
@@ -70,7 +71,7 @@ public class WebController {
         }
         try {
             long cid = Long.parseLong(id);
-            Clan clan = Queries.getClan(cid);
+            Clan clan = Queries.getResponse(Queries.getClan(cid), Clan.class);
             return new ModelAndView("clan", "clan", clan);
         } catch (NumberFormatException e) {
             return null;

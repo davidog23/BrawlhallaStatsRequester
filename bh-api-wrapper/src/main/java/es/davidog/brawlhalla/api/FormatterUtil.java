@@ -3,6 +3,10 @@ package es.davidog.brawlhalla.api;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.nio.charset.Charset;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 /**
  * Created by David on 16/09/2016.
  */
@@ -22,6 +26,25 @@ public class FormatterUtil {
         if (minutes > 0) { res += minutes + "min "; }
         if (seconds > 0) { res += seconds + "sec "; }
         return res.equals("") ? "0sec" : res;
+    }
+
+    public static String escapeHexUtf8ToString(String source) {
+        Pattern p = Pattern.compile("(\\\\u([a-fA-f0-9]{4}))+");
+        Matcher m = p.matcher(source);
+
+        StringBuffer sb = new StringBuffer();
+        while (m.find()) {
+            String[] caracteres = m.group().split("\\\\u");
+
+            byte[] bytes = new byte[caracteres.length - 1];
+            for(int i = 0; i < bytes.length; i++) {
+                bytes[i] = (byte) Integer.parseInt(caracteres[i + 1], 16);
+            }
+
+            m.appendReplacement(sb, new String(bytes, Charset.forName("UTF-8")));
+        }
+        m.appendTail(sb);
+        return sb.toString();
     }
 
     public static double formatUnitaryToPercentage(double unitary) {
